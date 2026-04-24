@@ -64,7 +64,7 @@ def read_file(text):
 
 def main():
     while True:
-        text=input("C/D/R and file route, type Q to quit:")
+        text=input()
         try:
             order_parts=shlex.split(text)
         except ValueError:
@@ -87,10 +87,6 @@ def main():
             continue
 
         
-
-
-        
-
 
 if __name__=="__main__":
     main()
