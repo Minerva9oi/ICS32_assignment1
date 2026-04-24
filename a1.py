@@ -17,7 +17,7 @@ def create_file(text):
         return
     directory=Path(text[1])
 
-    if not directory.exists() and not directory.is_dir():
+    if not directory.exists() or not directory.is_dir():
         print("ERROR")
         return
     else:
@@ -36,7 +36,7 @@ def delete_file(text):
     
     file_path=Path(text[1])
 
-    if not file_path.exists() or file_path.suffix != '.dsu':
+    if not file_path.exists() or file_path.suffix != '.dsu' or not file_path.is_file():
         print("ERROR")
         return
     
@@ -44,9 +44,13 @@ def delete_file(text):
     print(f'{file_path} DELETED')
 
 def read_file(text):
-
+    if len(text)!=2:
+        print("ERROR")
+        return
+    
     file_path=Path(text[1])
-    if not file_path.exists() or file_path.is_file() or file_path.suffix != ".dsu":
+
+    if not file_path.exists() or not file_path.is_file() or file_path.suffix != ".dsu":
         print("ERROR")
         return
     else:
@@ -66,9 +70,11 @@ def main():
         except ValueError:
             print("Invalid input, please try again")
             continue
-
+        if len(order_parts)==0:
+            print("ERROR")
+            continue
         
-        if order_parts[0]=="Q":
+        elif order_parts[0]=="Q":
             break
         elif order_parts[0]=="C":
             create_file(order_parts)
@@ -77,7 +83,7 @@ def main():
         elif order_parts[0]=="R":
             read_file(order_parts)
         else:
-            print("Invalid input, please try again")
+            print("ERROR")
             continue
 
         
